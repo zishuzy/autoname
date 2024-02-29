@@ -29,6 +29,7 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
+    let mut vec_entries: Vec<fs::DirEntry> = Vec::new();
 
     println!("args: {:#?}", args);
 
@@ -41,20 +42,29 @@ fn main() {
     if let Ok(entries) = fs::read_dir(dst_path) {
         for entry in entries {
             if let Ok(entry) = entry {
-                let path = entry.path();
-
-                // 打印文件或子目录的路径
-                println!("{}", path.display());
-
-                // 如果是目录，可以递归遍历
-                if path.is_dir() {
-                    // 递归遍历子目录
-                    // traverse_directory(&path);
-                }
+                vec_entries.push(entry);
             }
         }
     } else {
         println!("Failed to read directory.");
+    }
+
+    for entry in vec_entries {
+        let path = entry.path();
+
+        // 打印文件或子目录的路径
+        println!("{}", path.display());
+
+        // 如果是目录，可以递归遍历
+        if path.is_dir() {
+            // 递归遍历子目录
+            // traverse_directory(&path);
+        }
+    }
+
+    if args.suffix == None {
+        println!("No set suffix!");
+
     }
 
     if let Some(name) = args.name.as_deref() {
