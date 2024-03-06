@@ -1,7 +1,7 @@
 use clap::Parser;
 use std::{collections::HashMap, fs, path};
 
-/// Auto rename TV series files.
+/// Auto rename TV series files. example: name.S01E01.mp4
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
 struct Args {
